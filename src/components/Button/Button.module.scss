@@ -1,0 +1,79 @@
+.wrapper {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 100px;
+    padding: 9px 16px;
+    border-radius: 4px;
+    font-size: 1.6rem;
+    font-weight: 700;
+    background-color: var(--white);
+    border: 1px solid transparent;
+    cursor: pointer;
+    user-select: none; // không cho người dùng bôi đen bên trong hay select bất cứ gì
+    + .wrapper {
+        margin-left: 8px;
+    }
+    &.disabled {
+        // viết .disabled trong đây để ưu tiên hơn
+        pointer-events: none; // xóa bỏ pointer chuột
+        opacity: 0.5;
+    }
+}
+
+.icon + .title,
+.title + .icon {
+    margin-left: 8px;
+}
+
+.icon {
+    display: inline-block;
+    width: 24px;
+    text-align: center;
+}
+//button types
+.rounded {
+    padding: 7px 8px;
+    font-size: 1.4rem;
+    border-radius: 999px; //tip bo góc
+    color: rgba(22, 24, 35, 0.75);
+    box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 8px;
+    border: 1px solid rgba(22, 24, 35, 0.12);
+    &:hover {
+        border-color: rgba(22, 24, 35, 0.2);
+        background-color: rgb(255, 255, 255);
+    }
+}
+.primary {
+    color: var(--white);
+    background-color: var(--primary);
+    border-color: var(--primary);
+    &:hover {
+        border-color: var(--primary);
+        background: linear-gradient(0deg, rgba(0, 0, 0, 0.06), rgba(0, 0, 0, 0.06)), rgb(254, 44, 85);
+    }
+}
+.outline {
+    color: var(--primary);
+    border-color: currentColor;
+    &:hover {
+        border-color: currentColor;
+        background-color: rgba(254, 44, 85, 0.08);
+    }
+}
+.text {
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+//Button sizes
+.small {
+    min-width: 88px;
+    padding: 4px 16px;
+}
+
+.large {
+    min-width: 140px;
+    padding: 14px 16px;
+}
