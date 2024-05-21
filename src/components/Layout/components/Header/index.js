@@ -67,6 +67,7 @@ function Header() {
                 break;
             default:
         }
+        ///
     };
     return (
         // dùng header thay vì div thì nên dùng className là wrapper
