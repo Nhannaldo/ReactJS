@@ -26,7 +26,7 @@ import Button from '~/components/Button';
 import styles from './Header.module.scss';
 import images from '~/assets/images';
 import Menu from '~/components/Popper/Menu';
-
+import Image from '~/components/Image';
 const MENU_ITEMS = [
     {
         icon: <FontAwesomeIcon icon={faEarthAsia} />,
@@ -157,7 +157,7 @@ function Header() {
                     )}
                     <Menu items={currentUser ? userMenu : MENU_ITEMS} onChange={handleMenuChange}>
                         {currentUser ? (
-                            <img
+                            <Image
                                 className={cx('user-avatar')}
                                 src="https://p16-sign-sg.tiktokcdn.com/tos-alisg-avt-0068/daabb3492fb60065fb43903c6239cd39~c5_300x300.webp?lk3s=a5d48078&nonce=8429&refresh_token=a3efe840473dfde63012e097f10368af&x-expires=1716346800&x-signature=FVwdFDysjSxgNncks1NuOiXITss%3D&shp=a5d48078&shcp=c1333099"
                                 alt="Nguyen Van A"
