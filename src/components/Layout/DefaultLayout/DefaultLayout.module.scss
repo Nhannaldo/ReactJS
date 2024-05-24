@@ -6,8 +6,9 @@
 .container {
     display: flex;
     width: 1150px;
-    min-height: 1000px;
+    margin-top: var(--default-layout-header-height);
     padding: 0 var(--default-layout-horizontal-spacer);
+    min-height: 1000px;
 }
 .content {
     flex: 1;

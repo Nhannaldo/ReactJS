@@ -3,13 +3,19 @@
     --search-height: 46px;
     --search-top-spacer: 9px;
     --search-button-width: 52px;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10; //mặc định cho nó là 10 để mấy phần kia z-index trong khoảng < 10 để cái header luôn luôn nằm trên những cái nội dung, ví dụ modal thì z-index lớn hơn 10 để phủ toàn trang
+    display: flex;
+    justify-content: center;
     width: 100%;
     height: var(
         --default-layout-header-height
     ); //var(--default-layout-header-height, 60px) ghi kiểu này thì nếu không có biến này thì nó sẽ lấy mặc định giá trị phía sau là 60px
     box-shadow: 0px 1px 1px rgb(0 0 0 / 12%);
-    display: flex;
-    justify-content: center;
+    background-color: var(--white);
 }
 
 .inner {
