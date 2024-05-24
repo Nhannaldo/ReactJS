@@ -1,7 +1,8 @@
 import { Fragment } from 'react'; // thẻ đề chứa thôi, không sinh ra thật ở trong DOM
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { publicRoutes } from './routes';
-import { DefaultLayout, HeaderOnly } from './components/Layout';
+import DefaultLayout from '~/layouts';
+import HeaderOnly from '~/layouts';
 function App() {
     return (
         <Router>
