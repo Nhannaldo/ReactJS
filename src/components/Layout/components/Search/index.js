@@ -1,5 +1,4 @@
 import { useEffect, useState, useRef } from 'react';
-import axios from 'axios';
 import HeadlessTippy from '@tippyjs/react/headless';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faSpinner, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
@@ -31,6 +30,7 @@ function Search() {
         const fetchApi = async () => {
             setLoading(true);
             const result = await searchSevices.search(debounced);
+
             setSearchResult(result);
 
             setLoading(false);
@@ -38,7 +38,6 @@ function Search() {
         fetchApi();
         // trường hợp người dùng nập ?/ = / & trùng với quy ước thì phải mã hóa đi dùng encodeURIComponent
     }, [debounced]);
-
     const handleClear = () => {
         setSearchValue('');
         setSearchResult([]);
@@ -47,6 +46,14 @@ function Search() {
 
     const handleHideResult = () => {
         setShowResult(false);
+    };
+
+    const handleChange = (e) => {
+        const searchValue = e.target.value;
+
+        if (!searchValue.startsWith(' ')) {
+            setSearchValue(searchValue);
+        }
     };
     return (
         <HeadlessTippy
@@ -72,7 +79,7 @@ function Search() {
                     value={searchValue}
                     placeholder="Tìm kiếm video"
                     spellCheck={false}
-                    onChange={(e) => setSearchValue(e.target.value)}
+                    onChange={handleChange}
                     onFocus={() => setShowResult(true)}
                 />
                 {/* kiểu !! này để convert theo kiểu boolean */}
@@ -82,7 +89,7 @@ function Search() {
                     </button>
                 )}
                 {loading && <FontAwesomeIcon className={cx('loading')} icon={faSpinner} />}
-                <button className={cx('search-btn')}>
+                <button className={cx('search-btn')} onMouseDown={(e) => e.preventDefault()}>
                     <FontAwesomeIcon icon={faSearch} />
                 </button>
             </div>
