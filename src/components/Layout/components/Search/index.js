@@ -1,9 +1,11 @@
 import { useEffect, useState, useRef } from 'react';
+import axios from 'axios';
 import HeadlessTippy from '@tippyjs/react/headless';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faSpinner, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import classNames from 'classnames/bind';
 
+import * as searchSevices from '~/apiServices/searchSevices';
 import styles from './Search.module.scss';
 import AccountItem from '~/components/AccountItem';
 import { Wrapper as PopperWrapper } from '~/components/Popper';
@@ -26,19 +28,15 @@ function Search() {
             setSearchResult([]);
             return;
         }
+        const fetchApi = async () => {
+            setLoading(true);
+            const result = await searchSevices.search(debounced);
+            setSearchResult(result);
 
-        setLoading(true);
-
+            setLoading(false);
+        };
+        fetchApi();
         // trường hợp người dùng nập ?/ = / & trùng với quy ước thì phải mã hóa đi dùng encodeURIComponent
-        fetch(`https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(debounced)}&type=less`)
-            .then((res) => res.json())
-            .then((res) => {
-                setSearchResult(res.data);
-                setLoading(false);
-            })
-            .catch(() => {
-                setLoading(false);
-            });
     }, [debounced]);
 
     const handleClear = () => {
