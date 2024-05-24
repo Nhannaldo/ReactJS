@@ -7,7 +7,7 @@ import classNames from 'classnames/bind';
 import styles from './Search.module.scss';
 import AccountItem from '~/components/AccountItem';
 import { Wrapper as PopperWrapper } from '~/components/Popper';
-
+import { useDebounce } from '~/hooks';
 const cx = classNames.bind(styles);
 
 function Search() {
@@ -16,10 +16,12 @@ function Search() {
     const [showResult, setShowResult] = useState(true);
     const [loading, setLoading] = useState(false);
 
-    const inputRef = useRef();
+    //người dùng ngừng gõ 500ms , khi đó giá trị debouced này mới được update bằng giá trị mới nhất của searchValue
+    const debounced = useDebounce(searchValue, 500);
 
+    const inputRef = useRef();
     useEffect(() => {
-        if (!searchValue.trim()) {
+        if (!debounced.trim()) {
             // nếu không có searchValue thì dừng luôn
             setSearchResult([]);
             return;
@@ -28,7 +30,7 @@ function Search() {
         setLoading(true);
 
         // trường hợp người dùng nập ?/ = / & trùng với quy ước thì phải mã hóa đi dùng encodeURIComponent
-        fetch(`https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(searchValue)}&type=less`)
+        fetch(`https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(debounced)}&type=less`)
             .then((res) => res.json())
             .then((res) => {
                 setSearchResult(res.data);
@@ -37,7 +39,7 @@ function Search() {
             .catch(() => {
                 setLoading(false);
             });
-    }, [searchValue]);
+    }, [debounced]);
 
     const handleClear = () => {
         setSearchValue('');
